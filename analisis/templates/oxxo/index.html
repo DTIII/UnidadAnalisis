@@ -1,0 +1,85 @@
+{% extends 'base/base.html' %}
+
+{% block content%}
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Catálogo de tiendas oxxos</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                                            
+                            <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Sucursal</th>
+                                    <th>Direccion</th>
+                                    <th>Latitud</th>
+                                    <th>Longitud</th>
+                                    <th>Estatus</th>
+                                    <th>FechaAlta</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               {% for datadisplay in sqlServerConn%}
+                               <tr>
+                                    <td>
+                                        {{datadisplay.Id}}
+                                    </td>
+                                    <td>
+                                        {{datadisplay.Sucursal}}
+                                    </td>
+                                    <td>
+                                        {{datadisplay.Direccion}}
+                                    </td>
+                                    <td>
+                                        {{datadisplay.Latitud}}
+                                    </td>
+                                    <td>
+                                        {{datadisplay.Longitud}}
+                                    </td>
+                                    <td>
+                                        {{datadisplay.Estatus}}
+                                    </td>
+                                    <td>
+                                        {{datadisplay.FechaAlta}}
+                                    </td>
+                               </tr>
+                               {% endfor %}
+                            </tbody>
+                            <tfoot>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Sucursal</th>
+                                        <th>Direccion</th>
+                                        <th>Latitud</th>
+                                        <th>Longitud</th>
+                                        <th>Estatus</th>
+                                        <th>FechaAlta</th>
+                                    </tr>
+                            </tfoot>
+                        </table>
+                       
+                    </div>
+
+                    <!-- /.card-body -->
+
+                    <div class="card card-primary">
+                        <div class="card-body">
+                            <a href="/Gasolina/ExportOrdinarios" class="btn btn-primary" target="_blank">Descargar vales ordinarios</a> &nbsp;&nbsp;
+                            <a href="/Gasolina/ExportExtraordinarios" class="btn btn-primary" target="_blank">Descargar vales extraordinarios</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+{% endblock %}
