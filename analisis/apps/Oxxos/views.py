@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import sqlServerConn
+from datetime import date 
+from django.views.generic import ListView
 # Create your views here.
 
 import pyodbc
@@ -11,3 +13,7 @@ def Index(request):
      cursor.execute('select * from C_Oxxos')
      resultado=cursor.fetchall()
      return render(request, 'oxxo/index.html',{'sqlServerConn':resultado})
+
+class OxxosList(ListView):
+     model =  sqlServerConn
+     template_name = 'oxxo/Index.html'

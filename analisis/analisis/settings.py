@@ -75,12 +75,17 @@ WSGI_APPLICATION = 'analisis.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    "default": {
+        "ENGINE": "mssql",
+        "NAME": "UnidadAnalasis",
+        "USER": "MALTAX",
+        "PASSWORD": "MALTAX",
+        "HOST": "10.10.11.196",
+        "PORT": "1485",
+        "OPTIONS": {"driver": "ODBC Driver 17 for SQL Server", 
+        },
+    },
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -120,6 +125,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ] #STATIC_ROOT = os.path.join(BASE_DIR, 'static')

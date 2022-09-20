@@ -9,3 +9,4 @@ class sqlServerConn(models.Model):
     Longitud=models.CharField(max_length=50)
     Estatus=models.CharField(max_length=10)
     FechaAlta=models.DateField()
+
