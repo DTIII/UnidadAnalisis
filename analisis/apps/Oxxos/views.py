@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import sqlServerConn
+from models import COxxos
 from datetime import date 
 from django.views.generic import ListView
 # Create your views here.
@@ -15,5 +15,5 @@ def Index(request):
      return render(request, 'oxxo/index.html',{'sqlServerConn':resultado})
 
 class OxxosList(ListView):
-     model =  sqlServerConn
+     model =  COxxos
      template_name = 'oxxo/Index.html'
