@@ -1,0 +1,101 @@
+{% extends 'componentes/_layout.html' %}
+{% load static %}
+{% block head %}
+    
+      <link rel="stylesheet" href="{% static 'lib/sweetalert2-11.4.26/package/dist/sweetalert2.min.css' %}">
+      <script src="{% static 'lib/sweetalert2-11.4.26/package/dist/sweetalert2.all.min.js' %}"></script>
+      
+
+{% endblock %}
+
+{% block content %}
+  
+    <div class="col-md-12">
+        <form action="." method="post">
+            <div class="card card-default">
+                <div class="card-header">
+                    <h3>
+                        {{ subtitle }}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    {% csrf_token %}
+                    
+                    <input type="hidden" name="action" value="{{ action }}">
+
+                    {{ forms.errors }}
+
+                    {% for field in form.visible_fields%}
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="">{{ field.label }}</label>  
+                                {{ field }}
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+                <div class="card-footer">
+                    <a href="{{ list_url }}" class="btn btn-danger btn-sm">
+                        <i class="fas fa-arrow-alt-circle-left"></i> Regresar
+                    </a>
+
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <i class="fas fa-save"></i> Guardar Registro
+                    </button>
+                </div>
+            </div>
+        </form>    
+    </div>
+
+{% endblock %}
+
+
+{% block javascript %}
+    <script>
+
+        $('form').on('submit', function(e){
+            e.preventDefault();
+            var parameters= $(this).serializeArray();
+            $.ajax({
+                url: window.location.pathname,
+                type: 'POST',
+                data: parameters,
+                dataType:'json'
+            }).done(function(data) {
+                if(!data.hasOwnProperty('error')){
+                    let timerInterval
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: '{{ msg }}',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        allowOutsideClick: false,
+                    }).then((result) => {
+                        if (result.dismiss === Swal.DismissReason.timer) {
+                            location.href= '{{ list_url }}'
+                            return false;
+                        }
+                    })
+                }else{
+                    console.log(data['error']);
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'danger',
+                            title: 'Error para guardar',
+                            showConfirmButton: false,
+                            timer: 2500
+                        })
+                }
+                
+            }).fail(function(jqXHR,  textStatus,  errorThrown) {
+               
+            });
+            
+        });
+
+
+    </script>
+{% endblock %}

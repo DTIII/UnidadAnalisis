@@ -1,0 +1,75 @@
+{% extends 'componentes/_layout.html' %}
+{% load static %}
+{% block head %}
+    
+      
+      <link rel="stylesheet" href="{% static 'lib/DataTables/DataTables-1.12.1/css/dataTables.bootstrap4.min.css' %}">
+      <link rel="stylesheet" href="{% static 'lib/DataTables/Responsive-2.3.0/css/responsive.bootstrap4.min.css' %}">
+      
+      <script src="{% static 'lib/DataTables/DataTables-1.12.1/js/jquery.dataTables.js' %}"></script>
+      <script src="{% static 'lib/DataTables/DataTables-1.12.1/js/dataTables.bootstrap4.min.js' %}"></script>
+      <script src="{% static 'lib/DataTables/Responsive-2.3.0/js/dataTables.responsive.min.js' %}"></script>
+      <script src="{% static 'lib/DataTables/Responsive-2.3.0/js/responsive.bootstrap4.min.js' %}"></script>
+      <script src="{% static '/lib/DataTables/datatables.min.js' %}"></script>
+
+{% endblock %}
+
+{% block content %}
+  
+<div class="col-md-12">
+  <div class="card">
+    <div class="card-header">
+      <h2>
+        Catálogo de OXXOS
+      </h2>
+        <a href="{{ create_url }}" class="btn btn-primary btn-sm">
+          <i class="fas fa-plus"></i> Agregar Registro
+        </a>
+    </div>
+    <div class="card-body">
+      <table id="RecursosTable" class="table table-striped" style="width:100%">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Clave</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for r in oxxos %}
+            <tr>
+              <td>{{ r.id}}      </td>
+              <td>{{ r.sucursal}}      </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+        
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+
+{% block javascript %}
+    <script>
+      $(document).ready(function () {
+        $('#RecursosTable').DataTable({
+          responsive: true,
+          autoWidth: false,
+            language: {
+                lengthMenu: 'Mostrando _MENU_  por página',
+                zeroRecords: 'Sin Resultados - Lo siento!',
+                info: 'Mostrando página _PAGE_ de _PAGES_ de un total de _MAX_ registros',
+                infoEmpty: 'SIN DATOS DISPONIBLES',
+                infoFiltered: '(filtered from _MAX_ total records)',
+                search: 'Buscar:',
+                paginate: {
+                        next: 'Siguiente',
+                        previous: 'Anterior'
+                    }
+            },
+        });
+    });
+    </script>
+{% endblock %}
